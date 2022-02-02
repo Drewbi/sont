@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open"
+    "start": "webpack-dev-server --config webpack/default.js --open"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,6 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "phaser": "^3.55.2"
+    "p5": "^1.4.0"
   }
 }

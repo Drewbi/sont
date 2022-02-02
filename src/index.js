@@ -1,39 +1,20 @@
-import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
+import p5 from 'p5';
 
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
-        super();
-    }
+const root = document.getElementById('container');
 
-    preload ()
-    {
-        this.load.image('logo', logoImg);
-    }
-      
-    create ()
-    {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
-    }
+const main = (p5) => {
+    let x = 100;
+    let y = 100;
+  
+    p5.setup = () => {
+      p5.createCanvas(800, 400);
+    };
+  
+    p5.draw = () => {
+      p5.background(0);
+      p5.fill(255);
+      p5.rect(x, y, 50, 50);
+    };
 }
 
-const config = {
-    type: Phaser.AUTO,
-    parent: 'phaser-example',
-    width: 800,
-    height: 600,
-    scene: MyGame
-};
-
-const game = new Phaser.Game(config);
+new p5(main, root);
