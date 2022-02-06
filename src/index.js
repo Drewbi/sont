@@ -1,22 +1,30 @@
 import p5 from 'p5';
 import { drawCharacter } from './util/player';
 
-const root = document.getElementById('container');
+const root = document.body;
 
 const main = (p) => {
-    p.angleMode(p.DEGREES)
-    let x = 100;
-    let y = 100;
+  p.angleMode(p.DEGREES)
+  const arenaPadding = 50
+  let arenaSize = p.min(p.windowWidth - arenaPadding * 2, p.windowHeight - arenaPadding * 2)
   
-    p.setup = () => {
-      p.createCanvas(800, 400);
-    };
-  
-    p.draw = () => {
-      p.background(0);
-      p.fill(255);
-      drawCharacter(p, 200, 200, 180)
-    };
+  p.setup = () => {
+    p.createCanvas(p.windowWidth, p.windowHeight);
+  };
+
+  p.draw = () => {
+    p.background(255);
+    p.stroke(255, 200, 200)
+    p.strokeWeight(10)
+    p.rect(arenaPadding, arenaPadding, arenaSize, arenaSize);
+    drawCharacter(p, 200, 200, 180)
+  };
+
+  p.windowResized = () => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+    arenaSize = p.min(p.windowWidth - arenaPadding * 2, p.windowHeight - arenaPadding * 2)
+
+  }
 }
 
 new p5(main, root);
