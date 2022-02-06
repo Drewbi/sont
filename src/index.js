@@ -1,20 +1,27 @@
 import p5 from 'p5';
 
-const root = document.getElementById('container');
+const root = document.body;
 
-const main = (p5) => {
-    let x = 100;
-    let y = 100;
+const main = (p) => {
+  const arenaPadding = 50
+  let arenaSize = p.min(p.windowWidth - arenaPadding * 2, p.windowHeight - arenaPadding * 2)
   
-    p5.setup = () => {
-      p5.createCanvas(800, 400);
-    };
-  
-    p5.draw = () => {
-      p5.background(0);
-      p5.fill(255);
-      p5.rect(x, y, 50, 50);
-    };
+  p.setup = () => {
+    p.createCanvas(p.windowWidth, p.windowHeight);
+  };
+
+  p.draw = () => {
+    p.background(255);
+    p.stroke(255, 200, 200)
+    p.strokeWeight(10)
+    p.rect(arenaPadding, arenaPadding, arenaSize, arenaSize);
+  };
+
+  p.windowResized = () => {
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+    arenaSize = p.min(p.windowWidth - arenaPadding * 2, p.windowHeight - arenaPadding * 2)
+
+  }
 }
 
 new p5(main, root);
