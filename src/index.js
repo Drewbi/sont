@@ -1,29 +1,30 @@
-import p5 from 'p5';
-import { drawCharacter } from './util/player';
-
-const root = document.body;
+import p5 from 'p5'
+import { players, makeTurn, renderGame } from './game';
+import { updateArenaSize, p2mcoords, getArenaSize } from './util/map';
+const root = document.getElementById('root');
 
 const main = (p) => {
+  window.p = p
   p.angleMode(p.DEGREES)
-  const arenaPadding = 50
-  let arenaSize = p.min(p.windowWidth - arenaPadding * 2, p.windowHeight - arenaPadding * 2)
+  // p.frameRate(10);
+  
   
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
+    updateArenaSize()
+    setInterval(() => makeTurn(), 2000)
   };
 
   p.draw = () => {
-    p.background(255);
-    p.stroke(255, 200, 200)
-    p.strokeWeight(10)
-    p.rect(arenaPadding, arenaPadding, arenaSize, arenaSize);
-    drawCharacter(p, 200, 200, 180)
+    renderGame()
   };
 
-  p.windowResized = () => {
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-    arenaSize = p.min(p.windowWidth - arenaPadding * 2, p.windowHeight - arenaPadding * 2)
+  p.mouseClicked = () => {
+    players[0].setInput(...p2mcoords(p.mouseX, p.mouseY))
+  }
 
+  p.windowResized = () => {
+    updateArenaSize()
   }
 }
 
