@@ -3,17 +3,28 @@ import { Player } from "./util/player";
 import { drawClock } from './util/clock';
 import { randomInput } from './util/bot'
 
-const players = [
-  new Player(200, 200, 0, 0.1, 100),
-  new Player(200, 200, 0, 0.1, 30),
-  new Player(200, 200, 0, 0.1, 30)
-]
+const players = []
+
+const createPlayers = () => {
+  players.push(
+    new Player(randomInput(), randomInput(), p.random(360), 0.1, 100),
+    new Player(randomInput(), randomInput(), p.random(360), 0.1, 30),
+    new Player(randomInput(), randomInput(), p.random(360), 0.1, 30)
+  )
+}
+
+export const tickRate = 2000
 
 const makeTurn = () => {
   const [ _, ...bots ] = players
-  console.log(bots)
-  bots.forEach(bot => bot.setInput(randomInput(), randomInput()))
-  players.forEach(player => player.setDestination())
+  bots.forEach(bot => {
+    bot.inputX = randomInput()
+    bot.inputY = randomInput()
+  })
+  players.forEach(player => {
+    player.setInput()
+    player.setDestination()
+  })
 }
 
 const renderGame = () => {
@@ -24,5 +35,5 @@ const renderGame = () => {
   drawClock()
 }
 
-export { players, makeTurn, renderGame }
+export { players, createPlayers, makeTurn, renderGame }
 

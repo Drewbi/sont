@@ -1,6 +1,6 @@
 import p5 from 'p5'
-import { players, makeTurn, renderGame } from './game';
-import { updateArenaSize, p2mcoords, getArenaSize } from './util/map';
+import { players, makeTurn, renderGame, tickRate, createPlayers } from './game';
+import { p2mcoords, updateArenaSize } from './util/map';
 const root = document.getElementById('root');
 
 const main = (p) => {
@@ -12,7 +12,9 @@ const main = (p) => {
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
     updateArenaSize()
-    setInterval(() => makeTurn(), 2000)
+    createPlayers()
+    players[0].setIt(true)
+    setInterval(() => makeTurn(), tickRate)
   };
 
   p.draw = () => {
@@ -20,7 +22,9 @@ const main = (p) => {
   };
 
   p.mouseClicked = () => {
-    players[0].setInput(...p2mcoords(p.mouseX, p.mouseY))
+    const [ mapX, mapY ] = p2mcoords(p.mouseX, p.mouseY)
+    players[0].inputX = mapX
+    players[0].inputY = mapY
   }
 
   p.windowResized = () => {
