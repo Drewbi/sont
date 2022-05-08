@@ -1,7 +1,8 @@
 import { getArenaSize, m2pcoords } from "./map"
 import { tickRate } from "../game"
+import P5 from "p5"
 
-const drawClock = () => {
+const drawClock = (p: P5) => {
   p.push()
   // p.translate(25, 25)
   // p.rotate(((p.millis() % 1000) / 1000) * 360)
@@ -10,7 +11,7 @@ const drawClock = () => {
   const progress = (p.millis() % tickRate) / tickRate
   const qtrProgress = (p.millis() % (tickRate / 4)) / (tickRate / 4)
   const dist = p.lerp(0, getArenaSize(), qtrProgress)
-  p.strokeJoin(p.SQUARE)
+  p.strokeJoin(p.MITER)
   p.noFill()
   p.stroke(100, 206, 255)
   p.beginShape()

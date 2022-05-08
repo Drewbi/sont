@@ -3,16 +3,20 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
+  entry: './src/index.ts',
   mode: "development",
   devtool: "eval-source-map",
   module: {
     rules: [
       {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: 'ts-loader',
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
+        use: "babel-loader",
       },
       {
         test: [/\.vert$/, /\.frag$/],
@@ -23,6 +27,9 @@ module.exports = {
         use: "file-loader"
       }
     ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new CleanWebpackPlugin({
