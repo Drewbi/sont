@@ -1,8 +1,8 @@
-import P5 from 'p5'
+import { p5 } from '../index'
 import { getArenaSize } from './map'
 
-const randomInput = (p: P5) => {
-  return p.random(getArenaSize())
+const randomInput = () => {
+  return p5.random(getArenaSize())
 }
 
 export { randomInput }

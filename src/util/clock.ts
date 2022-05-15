@@ -1,39 +1,39 @@
 import { getArenaSize, m2pcoords } from "./map"
 import { tickRate } from "../game"
-import P5 from "p5"
+import { p5 } from '../index'
 
-const drawClock = (p: P5) => {
-  p.push()
-  // p.translate(25, 25)
-  // p.rotate(((p.millis() % 1000) / 1000) * 360)
-  // p.circle(0, 0, 30)
-  // p.rect(0, 0, 0, -10)
-  const progress = (p.millis() % tickRate) / tickRate
-  const qtrProgress = (p.millis() % (tickRate / 4)) / (tickRate / 4)
-  const dist = p.lerp(0, getArenaSize(), qtrProgress)
-  p.strokeJoin(p.MITER)
-  p.noFill()
-  p.stroke(100, 206, 255)
-  p.beginShape()
+const drawClock = () => {
+  p5.push()
+  // p5.translate(25, 25)
+  // p5.rotate(((p5.millis() % 1000) / 1000) * 360)
+  // p5.circle(0, 0, 30)
+  // p5.rect(0, 0, 0, -10)
+  const progress = (p5.millis() % tickRate) / tickRate
+  const qtrProgress = (p5.millis() % (tickRate / 4)) / (tickRate / 4)
+  const dist = p5.lerp(0, getArenaSize(), qtrProgress)
+  p5.strokeJoin(p5.MITER)
+  p5.noFill()
+  p5.stroke(100, 206, 255)
+  p5.beginShape()
   
-  p.vertex(...m2pcoords(0, 0))
+  p5.vertex(...m2pcoords(0, 0))
   if (progress < 0.25) {
-    p.vertex(...m2pcoords(dist, 0))
-  } else p.vertex(...m2pcoords(getArenaSize(), 0))
+    p5.vertex(...m2pcoords(dist, 0))
+  } else p5.vertex(...m2pcoords(getArenaSize(), 0))
 
   if (progress < 0.5 && progress > 0.25) {
-    p.vertex(...m2pcoords(getArenaSize(), dist))
-  } else if (progress > 0.25) p.vertex(...m2pcoords(getArenaSize(), getArenaSize()))
+    p5.vertex(...m2pcoords(getArenaSize(), dist))
+  } else if (progress > 0.25) p5.vertex(...m2pcoords(getArenaSize(), getArenaSize()))
   
   if (progress < 0.75 && progress > 0.5) {
-    p.vertex(...m2pcoords(getArenaSize() - dist, getArenaSize()))
-  } else if (progress > 0.5) p.vertex(...m2pcoords(0, getArenaSize()))
+    p5.vertex(...m2pcoords(getArenaSize() - dist, getArenaSize()))
+  } else if (progress > 0.5) p5.vertex(...m2pcoords(0, getArenaSize()))
   
   if (progress < 1 && progress > 0.75) {
-    p.vertex(...m2pcoords(0, getArenaSize() - dist))
+    p5.vertex(...m2pcoords(0, getArenaSize() - dist))
   }
-  p.endShape()
-  p.pop()
+  p5.endShape()
+  p5.pop()
 }
 
 export { drawClock }

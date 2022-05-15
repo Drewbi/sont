@@ -8,23 +8,23 @@ const main = (p: P5) => {
   
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
-    updateArenaSize(p)
-    createPlayers(p)
+    updateArenaSize()
+    createPlayers()
     players[0].setIt(true)
-    setInterval(() => makeTurn(p), tickRate)
+    setInterval(() => makeTurn(), tickRate)
   };
 
   p.draw = () => {
-    renderGame(p)
+    renderGame()
   };
 
   p.mouseClicked = () => {
     players[0].input = new Vector(...p2mcoords(p.mouseX, p.mouseY))
   }
 
-  p.windowResized = (p: P5) => {
-    updateArenaSize(p)
+  p.windowResized = () => {
+    updateArenaSize()
   }
 }
 
-new P5(main, root);
+export const p5 = new P5(main, root);
